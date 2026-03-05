@@ -479,32 +479,7 @@
   .receipt-row .r-label { color: var(--gray-500); font-weight: 500; }
   .receipt-row .r-val { font-weight: 700; color: var(--navy); text-align: right; max-width: 55%; }
 
-  /* SHEET CONFIG */
-  .config-banner {
-    background: linear-gradient(135deg, #FFF7E6, #FFF0CC);
-    border: 1.5px solid var(--accent);
-    border-radius: var(--radius-sm);
-    padding: 14px;
-    margin: 0 16px 16px;
-  }
-  .config-banner h3 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
-  .config-banner p { font-size: 11px; color: var(--gray-700); line-height: 1.5; }
-  .config-input-wrap { margin-top: 10px; display: flex; gap: 8px; }
-  .config-input-wrap input {
-    flex: 1; font-size: 12px; padding: 9px 12px;
-    background: white;
-  }
-  .config-input-wrap button {
-    padding: 9px 14px;
-    background: var(--accent);
-    color: var(--navy);
-    font-size: 12px;
-    font-weight: 700;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
+
 
   /* TOAST */
   .toast {
@@ -573,21 +548,13 @@
   </div>
   <div class="header-badge">
     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    Dokumen Resmi
+    Gozeal Finance
   </div>
   <h1>Form Penggunaan<br>Dana Perusahaan</h1>
   <p>Isi dengan lengkap & jujur sebagai pertanggungjawaban</p>
 </div>
 
-<!-- GOOGLE SHEET CONFIG -->
-<div class="config-banner" id="configBanner">
-  <h3>⚙️ Hubungkan ke Google Sheets</h3>
-  <p>Masukkan URL Google Apps Script (Web App) untuk menyimpan data ke spreadsheet Anda. Data mulai dari kolom B.</p>
-  <div class="config-input-wrap">
-    <input type="text" id="scriptUrl" placeholder="https://script.google.com/macros/s/..." />
-    <button onclick="saveScriptUrl()">Simpan</button>
-  </div>
-</div>
+
 
 <!-- PROGRESS -->
 <div class="progress-wrap">
@@ -881,25 +848,7 @@
 
 <script>
 // ============= CONFIG =============
-let SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZA4pcCoZYgScOjeaLepjUvpLANJd1DWd7p6NXhrbWZtR3JgDWAHR5o58AMtuSeBxLZA/exec';
-const urlInput = document.getElementById('scriptUrl');
-if (SCRIPT_URL) {
-  urlInput.value = SCRIPT_URL;
-  document.getElementById('configBanner').style.background = 'linear-gradient(135deg,#F0FFF4,#DCFCE7)';
-  document.getElementById('configBanner').style.borderColor = '#22C55E';
-}
-
-function saveScriptUrl() {
-  const url = urlInput.value.trim();
-  if (!url.startsWith('https://script.google.com')) {
-    showToast('❌ URL tidak valid. Gunakan Google Apps Script URL'); return;
-  }
-  SCRIPT_URL = url;
-  localStorage.setItem('sheetScriptUrl', url);
-  document.getElementById('configBanner').style.background = 'linear-gradient(135deg,#F0FFF4,#DCFCE7)';
-  document.getElementById('configBanner').style.borderColor = '#22C55E';
-  showToast('✅ URL berhasil disimpan!');
-}
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZA4pcCoZYgScOjeaLepjUvpLANJd1DWd7p6NXhrbWZtR3JgDWAHR5o58AMtuSeBxLZA/exec';
 
 // ============= STEP NAV =============
 let currentStep = 1;
@@ -1108,7 +1057,6 @@ async function submitForm() {
 
 function showSuccess(d) {
   document.getElementById('formWrapper').style.display = 'none';
-  document.getElementById('configBanner').style.display = 'none';
   const ss = document.getElementById('successScreen');
   ss.classList.add('show');
   document.getElementById('receiptCard').innerHTML = `
@@ -1124,7 +1072,6 @@ function showSuccess(d) {
 
 function resetForm() {
   document.getElementById('formWrapper').style.display = 'block';
-  document.getElementById('configBanner').style.display = 'block';
   document.getElementById('successScreen').classList.remove('show');
   document.getElementById('nama').value = '';
   document.getElementById('tanggal').value = '';
