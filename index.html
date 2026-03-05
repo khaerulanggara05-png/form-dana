@@ -8,7 +8,6 @@
 <style>
   :root {
     --navy: #0A1628;
-    --navy-mid: #132040;
     --blue: #1E3A5F;
     --accent: #F5A623;
     --accent-light: #FFC85A;
@@ -24,544 +23,160 @@
     --radius: 16px;
     --radius-sm: 10px;
     --shadow: 0 4px 24px rgba(10,22,40,0.10);
-    --shadow-lg: 0 8px 40px rgba(10,22,40,0.18);
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray-100); color: var(--text); min-height: 100vh; padding-bottom: 40px; }
 
-  body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--gray-100);
-    color: var(--text);
-    min-height: 100vh;
-    padding-bottom: 40px;
-  }
-
-  /* HEADER */
-  .header {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
-    padding: 28px 20px 32px;
-    position: relative;
-    overflow: hidden;
-  }
-  .header::before {
-    content: '';
-    position: absolute;
-    top: -40px; right: -40px;
-    width: 160px; height: 160px;
-    background: rgba(245,166,35,0.12);
-    border-radius: 50%;
-  }
-  .header::after {
-    content: '';
-    position: absolute;
-    bottom: -30px; left: -20px;
-    width: 100px; height: 100px;
-    background: rgba(245,166,35,0.07);
-    border-radius: 50%;
-  }
-  .header-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(245,166,35,0.18);
-    border: 1px solid rgba(245,166,35,0.35);
-    color: var(--accent-light);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    padding: 5px 12px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-  }
-  .header h1 {
-    color: var(--white);
-    font-size: 22px;
-    font-weight: 800;
-    line-height: 1.3;
-    margin-bottom: 6px;
-  }
-  .header p {
-    color: rgba(255,255,255,0.55);
-    font-size: 13px;
-    font-weight: 400;
-  }
-  .header-logo {
-    position: absolute;
-    top: 20px; right: 20px;
-    width: 42px; height: 42px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-  }
+  .header { background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%); padding: 28px 20px 32px; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; background: rgba(245,166,35,0.12); border-radius: 50%; }
+  .header::after { content: ''; position: absolute; bottom: -30px; left: -20px; width: 100px; height: 100px; background: rgba(245,166,35,0.07); border-radius: 50%; }
+  .header-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,166,35,0.18); border: 1px solid rgba(245,166,35,0.35); color: var(--accent-light); font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 12px; }
+  .header h1 { color: var(--white); font-size: 22px; font-weight: 800; line-height: 1.3; margin-bottom: 6px; }
+  .header p { color: rgba(255,255,255,0.55); font-size: 13px; }
+  .header-logo { position: absolute; top: 20px; right: 20px; width: 42px; height: 42px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
   .header-logo svg { width: 22px; height: 22px; fill: var(--accent-light); }
 
-  /* PROGRESS */
-  .progress-wrap {
-    background: var(--white);
-    padding: 16px 20px;
-    box-shadow: 0 2px 8px rgba(10,22,40,0.06);
-    position: sticky; top: 0; z-index: 100;
-  }
-  .progress-steps {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-  }
-  .progress-line {
-    position: absolute;
-    top: 14px; left: 14px; right: 14px;
-    height: 2px;
-    background: var(--gray-200);
-  }
-  .progress-line-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent-light));
-    transition: width 0.4s ease;
-    border-radius: 2px;
-  }
-  .step-dot {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--gray-200);
-    border: 2px solid var(--gray-300);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700;
-    color: var(--gray-500);
-    position: relative; z-index: 1;
-    transition: all 0.3s;
-    flex-shrink: 0;
-  }
-  .step-dot.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--navy);
-    box-shadow: 0 0 0 4px rgba(245,166,35,0.2);
-  }
-  .step-dot.done {
-    background: var(--success);
-    border-color: var(--success);
-    color: white;
-  }
-  .progress-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 6px;
-    padding: 0 2px;
-  }
-  .progress-labels span {
-    font-size: 9px;
-    font-weight: 600;
-    color: var(--gray-500);
-    text-align: center;
-    width: 28px;
-    letter-spacing: 0.3px;
-  }
+  .progress-wrap { background: var(--white); padding: 16px 20px; box-shadow: 0 2px 8px rgba(10,22,40,0.06); position: sticky; top: 0; z-index: 100; }
+  .progress-steps { display: flex; align-items: center; justify-content: space-between; position: relative; }
+  .progress-line { position: absolute; top: 14px; left: 14px; right: 14px; height: 2px; background: var(--gray-200); }
+  .progress-line-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transition: width 0.4s ease; border-radius: 2px; }
+  .step-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--gray-200); border: 2px solid var(--gray-300); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--gray-500); position: relative; z-index: 1; transition: all 0.3s; flex-shrink: 0; }
+  .step-dot.active { background: var(--accent); border-color: var(--accent); color: var(--navy); box-shadow: 0 0 0 4px rgba(245,166,35,0.2); }
+  .step-dot.done { background: var(--success); border-color: var(--success); color: white; }
+  .progress-labels { display: flex; justify-content: space-between; margin-top: 6px; padding: 0 2px; }
+  .progress-labels span { font-size: 9px; font-weight: 600; color: var(--gray-500); text-align: center; width: 28px; letter-spacing: 0.3px; }
   .progress-labels span.active { color: var(--accent); }
   .progress-labels span.done { color: var(--success); }
 
-  /* FORM CONTAINER */
   .container { padding: 20px 16px 0; }
-
-  /* CARD */
-  .card {
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 20px;
-    margin-bottom: 14px;
-    border: 1px solid var(--gray-200);
-  }
-  .card-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-  .card-icon {
-    width: 36px; height: 36px;
-    background: linear-gradient(135deg, var(--navy), var(--blue));
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
+  .card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 14px; border: 1px solid var(--gray-200); }
+  .card-title { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .card-icon { width: 36px; height: 36px; background: linear-gradient(135deg, var(--navy), var(--blue)); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .card-icon svg { width: 18px; height: 18px; stroke: var(--accent-light); fill: none; stroke-width: 2; }
-  .card-title h2 {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--navy);
-  }
-  .card-title p {
-    font-size: 11px;
-    color: var(--gray-500);
-    font-weight: 400;
-    margin-top: 1px;
-  }
+  .card-title h2 { font-size: 15px; font-weight: 700; color: var(--navy); }
+  .card-title p { font-size: 11px; color: var(--gray-500); font-weight: 400; margin-top: 1px; }
 
-  /* FIELD */
   .field { margin-bottom: 16px; }
   .field:last-child { margin-bottom: 0; }
-  label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gray-700);
-    margin-bottom: 6px;
-    letter-spacing: 0.3px;
-  }
+  label { display: block; font-size: 12px; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; letter-spacing: 0.3px; }
   label .req { color: var(--danger); margin-left: 2px; }
-
-  input[type="text"],
-  input[type="date"],
-  input[type="number"],
-  input[type="email"],
-  select,
-  textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid var(--gray-300);
-    border-radius: var(--radius-sm);
-    font-family: inherit;
-    font-size: 14px;
-    color: var(--text);
-    background: var(--gray-100);
-    transition: all 0.2s;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
+  input[type="text"], input[type="date"], input[type="number"], select, textarea {
+    width: 100%; padding: 12px 14px; border: 1.5px solid var(--gray-300); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 14px; color: var(--text); background: var(--gray-100);
+    transition: all 0.2s; outline: none; appearance: none; -webkit-appearance: none;
   }
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--accent);
-    background: var(--white);
-    box-shadow: 0 0 0 3px rgba(245,166,35,0.12);
-  }
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238896A8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 38px;
-  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); background: var(--white); box-shadow: 0 0 0 3px rgba(245,166,35,0.12); }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238896A8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 38px; }
   textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
 
-  /* DIVISI GRID */
-  .divisi-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-  .divisi-option {
-    position: relative;
-  }
-  .divisi-option input[type="radio"] {
-    position: absolute; opacity: 0; width: 0; height: 0;
-  }
-  .divisi-option label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 12px 8px;
-    border: 1.5px solid var(--gray-300);
-    border-radius: var(--radius-sm);
-    background: var(--gray-100);
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gray-500);
-    text-align: center;
-    margin: 0;
-  }
-  .divisi-option label .div-icon {
-    font-size: 20px;
-    line-height: 1;
-  }
-  .divisi-option input:checked + label {
-    border-color: var(--accent);
-    background: rgba(245,166,35,0.08);
-    color: var(--navy);
-    box-shadow: 0 0 0 3px rgba(245,166,35,0.15);
-  }
+  .divisi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .divisi-option { position: relative; }
+  .divisi-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .divisi-option label { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 12px 8px; border: 1.5px solid var(--gray-300); border-radius: var(--radius-sm); background: var(--gray-100); cursor: pointer; transition: all 0.2s; font-size: 12px; font-weight: 600; color: var(--gray-500); text-align: center; margin: 0; }
+  .divisi-option label .div-icon { font-size: 20px; line-height: 1; }
+  .divisi-option input:checked + label { border-color: var(--accent); background: rgba(245,166,35,0.08); color: var(--navy); box-shadow: 0 0 0 3px rgba(245,166,35,0.15); }
 
-  /* UPLOAD */
-  .upload-area {
-    border: 2px dashed var(--gray-300);
-    border-radius: var(--radius-sm);
-    padding: 24px 16px;
-    text-align: center;
-    background: var(--gray-100);
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-  }
-  .upload-area:hover, .upload-area.dragover {
-    border-color: var(--accent);
-    background: rgba(245,166,35,0.05);
-  }
-  .upload-area input[type="file"] {
-    position: absolute; inset: 0;
-    opacity: 0; cursor: pointer;
-    width: 100%; height: 100%;
-    border: none; background: none; padding: 0;
-  }
-  .upload-icon {
-    width: 44px; height: 44px;
-    background: linear-gradient(135deg, var(--navy), var(--blue));
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 10px;
-  }
+  .nominal-wrap { position: relative; }
+  .nominal-prefix { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; font-weight: 700; color: var(--gray-700); font-family: 'DM Mono', monospace; pointer-events: none; }
+  .nominal-wrap input { padding-left: 40px; font-family: 'DM Mono', monospace; font-size: 14px; }
+
+  /* KEMBALIAN */
+  .kembalian-summary { margin-top: 14px; border-radius: var(--radius-sm); overflow: hidden; border: 1.5px solid var(--gray-300); }
+  .kem-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 14px; border-bottom: 1px solid var(--gray-200); font-size: 13px; }
+  .kem-row:last-child { border-bottom: none; }
+  .kem-label { color: var(--gray-500); font-weight: 500; }
+  .kem-val { font-family: 'DM Mono', monospace; font-weight: 700; color: var(--navy); }
+  .kem-row.kembalian-row { background: linear-gradient(135deg, #F0FFF4, #DCFCE7); }
+  .kem-row.kembalian-row .kem-val { color: var(--success); font-size: 15px; }
+  .kem-row.kurang-row { background: linear-gradient(135deg, #FFF5F5, #FEE2E2); }
+  .kem-row.kurang-row .kem-val { color: var(--danger); font-size: 15px; }
+  .kem-row.pas-row { background: linear-gradient(135deg, #F0FFF4, #DCFCE7); }
+  .kem-row.pas-row .kem-val { color: var(--success); }
+
+  .upload-area { border: 2px dashed var(--gray-300); border-radius: var(--radius-sm); padding: 24px 16px; text-align: center; background: var(--gray-100); cursor: pointer; transition: all 0.2s; position: relative; }
+  .upload-area:hover, .upload-area.dragover { border-color: var(--accent); background: rgba(245,166,35,0.05); }
+  .upload-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; border: none; background: none; padding: 0; }
+  .upload-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--navy), var(--blue)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
   .upload-icon svg { width: 22px; height: 22px; stroke: var(--accent-light); fill: none; stroke-width: 1.8; }
   .upload-text { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
   .upload-sub { font-size: 11px; color: var(--gray-500); }
-  .preview-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 12px;
-  }
-  .preview-item {
-    position: relative;
-    aspect-ratio: 1;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1.5px solid var(--gray-200);
-  }
+  .preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+  .preview-item { position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--gray-200); }
   .preview-item img { width: 100%; height: 100%; object-fit: cover; }
-  .preview-item .remove-btn {
-    position: absolute; top: 4px; right: 4px;
-    width: 20px; height: 20px;
-    background: rgba(239,68,68,0.9);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    border: none;
-  }
+  .preview-item .remove-btn { position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; background: rgba(239,68,68,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
   .preview-item .remove-btn svg { width: 10px; height: 10px; stroke: white; fill: none; stroke-width: 2.5; }
 
-  /* SIGNATURE */
-  .sig-wrap {
-    border: 1.5px solid var(--gray-300);
-    border-radius: var(--radius-sm);
-    background: var(--gray-100);
-    overflow: hidden;
-  }
-  .sig-label-bar {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 8px 12px;
-    background: var(--gray-200);
-    border-bottom: 1px solid var(--gray-300);
-  }
+  .sig-wrap { border: 1.5px solid var(--gray-300); border-radius: var(--radius-sm); background: var(--gray-100); overflow: hidden; }
+  .sig-label-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--gray-200); border-bottom: 1px solid var(--gray-300); }
   .sig-label-bar span { font-size: 11px; font-weight: 600; color: var(--gray-700); }
-  .sig-clear {
-    font-size: 11px; font-weight: 600;
-    color: var(--danger);
-    background: none; border: none;
-    cursor: pointer; padding: 2px 6px;
-    border-radius: 4px;
-  }
-  canvas#sigCanvas {
-    display: block;
-    touch-action: none;
-    cursor: crosshair;
-    background: transparent;
-  }
-  .sig-empty-hint {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    pointer-events: none;
-  }
+  .sig-clear { font-size: 11px; font-weight: 600; color: var(--danger); background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; }
+  canvas#sigCanvas { display: block; touch-action: none; cursor: crosshair; background: transparent; }
+  .sig-empty-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; pointer-events: none; }
   .sig-empty-hint p { font-size: 12px; color: var(--gray-500); }
   .sig-container { position: relative; }
 
-  /* NOMINAL */
-  .nominal-wrap { position: relative; }
-  .nominal-prefix {
-    position: absolute;
-    left: 14px; top: 50%; transform: translateY(-50%);
-    font-size: 13px; font-weight: 700; color: var(--gray-700);
-    font-family: 'DM Mono', monospace;
-    pointer-events: none;
-  }
-  .nominal-wrap input { padding-left: 40px; font-family: 'DM Mono', monospace; font-size: 14px; }
-  .nominal-display {
-    margin-top: 6px;
-    padding: 8px 12px;
-    background: rgba(245,166,35,0.1);
-    border-radius: 8px;
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--navy);
-    display: none;
-  }
-
-  /* SECTION STEP */
   .step-section { display: none; }
   .step-section.active { display: block; }
 
-  /* BUTTONS */
-  .btn-row {
-    display: flex; gap: 10px;
-    margin-top: 20px;
-    padding: 0 16px;
-  }
-  .btn {
-    flex: 1;
-    padding: 15px;
-    border-radius: var(--radius-sm);
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent-light));
-    color: var(--navy);
-    box-shadow: 0 4px 14px rgba(245,166,35,0.4);
-  }
+  .btn-row { display: flex; gap: 10px; margin-top: 20px; padding: 0 16px; }
+  .btn { flex: 1; padding: 15px; border-radius: var(--radius-sm); font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: var(--navy); box-shadow: 0 4px 14px rgba(245,166,35,0.4); }
   .btn-primary:active { transform: scale(0.97); }
-  .btn-secondary {
-    background: var(--gray-200);
-    color: var(--gray-700);
-  }
+  .btn-secondary { background: var(--gray-200); color: var(--gray-700); }
+  .btn-dark { background: linear-gradient(135deg,#0A1628,#1E3A5F); color: white; box-shadow: 0 4px 14px rgba(10,22,40,0.4); }
   .btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; }
 
-  /* SUCCESS */
-  .success-screen {
-    display: none;
-    text-align: center;
-    padding: 40px 20px;
-  }
+  .success-screen { display: none; text-align: center; padding: 40px 20px; }
   .success-screen.show { display: block; }
-  .success-anim {
-    width: 80px; height: 80px;
-    background: linear-gradient(135deg, var(--success), #16A34A);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 20px;
-    box-shadow: 0 8px 24px rgba(34,197,94,0.4);
-    animation: pop 0.4s ease;
-  }
-  @keyframes pop {
-    0% { transform: scale(0.5); opacity: 0; }
-    70% { transform: scale(1.1); }
-    100% { transform: scale(1); opacity: 1; }
-  }
+  .success-anim { width: 80px; height: 80px; background: linear-gradient(135deg, var(--success), #16A34A); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 8px 24px rgba(34,197,94,0.4); animation: pop 0.4s ease; }
+  @keyframes pop { 0% { transform: scale(0.5); opacity: 0; } 70% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
   .success-anim svg { width: 36px; height: 36px; stroke: white; fill: none; stroke-width: 3; }
   .success-screen h2 { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
-  .success-screen p { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
-  .receipt-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 18px;
-    margin: 20px 0;
-    border: 1px solid var(--gray-200);
-    text-align: left;
-    box-shadow: var(--shadow);
-  }
-  .receipt-row {
-    display: flex; justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--gray-100);
-    font-size: 13px;
-  }
+  .success-screen > .container > p { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+  .receipt-card { background: var(--white); border-radius: var(--radius); padding: 18px; margin: 16px 0; border: 1px solid var(--gray-200); text-align: left; box-shadow: var(--shadow); }
+  .receipt-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--gray-100); font-size: 13px; }
   .receipt-row:last-child { border-bottom: none; }
-  .receipt-row .r-label { color: var(--gray-500); font-weight: 500; }
-  .receipt-row .r-val { font-weight: 700; color: var(--navy); text-align: right; max-width: 55%; }
+  .receipt-row .r-label { color: var(--gray-500); font-weight: 500; flex-shrink: 0; }
+  .receipt-row .r-val { font-weight: 700; color: var(--navy); text-align: right; max-width: 60%; }
 
+  .status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+  .status-pending { background: #FFF7E6; color: #D97706; border: 1px solid #FCD34D; }
 
-
-  /* TOAST */
-  .toast {
-    position: fixed; bottom: 20px; left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--navy);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-size: 13px; font-weight: 600;
-    z-index: 999;
-    transition: transform 0.3s ease;
-    white-space: nowrap;
-    box-shadow: 0 8px 24px rgba(10,22,40,0.3);
-  }
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--navy); color: white; padding: 12px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; z-index: 999; transition: transform 0.3s ease; white-space: nowrap; box-shadow: 0 8px 24px rgba(10,22,40,0.3); }
   .toast.show { transform: translateX(-50%) translateY(0); }
 
-  .field-error {
-    font-size: 11px; color: var(--danger);
-    margin-top: 4px; font-weight: 500;
-    display: none;
-  }
+  .field-error { font-size: 11px; color: var(--danger); margin-top: 4px; font-weight: 500; display: none; }
   .field-error.show { display: block; }
-  input.error, select.error, textarea.error {
-    border-color: var(--danger);
-    background: #FFF5F5;
-  }
+  input.error, select.error, textarea.error { border-color: var(--danger); background: #FFF5F5; }
 
-  .loading-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(10,22,40,0.7);
-    z-index: 500;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 14px;
-  }
+  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(10,22,40,0.7); z-index: 500; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
   .loading-overlay.show { display: flex; }
-  .spinner {
-    width: 44px; height: 44px;
-    border: 4px solid rgba(255,255,255,0.2);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
+  .spinner { width: 44px; height: 44px; border: 4px solid rgba(255,255,255,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .loading-overlay p { color: white; font-size: 14px; font-weight: 600; }
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
-  <p>Mengirim data...</p>
+  <p id="loadingText">Mengirim data...</p>
 </div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- HEADER -->
 <div class="header">
-  <div class="header-logo">
-    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-  </div>
+  <div class="header-logo"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
   <div class="header-badge">
     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    Gozeal Finance
+    Dokumen Resmi
   </div>
   <h1>Form Penggunaan<br>Dana Perusahaan</h1>
   <p>Isi dengan lengkap & jujur sebagai pertanggungjawaban</p>
 </div>
 
-
-
-<!-- PROGRESS -->
 <div class="progress-wrap">
   <div class="progress-steps">
-    <div class="progress-line">
-      <div class="progress-line-fill" id="progressFill" style="width:0%"></div>
-    </div>
+    <div class="progress-line"><div class="progress-line-fill" id="progressFill" style="width:0%"></div></div>
     <div class="step-dot active" id="dot1">1</div>
     <div class="step-dot" id="dot2">2</div>
     <div class="step-dot" id="dot3">3</div>
@@ -575,106 +190,61 @@
   </div>
 </div>
 
-<!-- FORM WRAPPER -->
 <div id="formWrapper">
 
-<!-- STEP 1: INFO UMUM -->
+<!-- STEP 1: INFO -->
 <div class="step-section active" id="step1">
   <div class="container">
     <div class="card">
       <div class="card-title">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
-        <div>
-          <h2>Identitas Pemohon</h2>
-          <p>Lengkapi data diri Anda</p>
-        </div>
+        <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div><h2>Identitas Pemohon</h2><p>Lengkapi data diri Anda</p></div>
       </div>
-
       <div class="field">
         <label>Nama Lengkap <span class="req">*</span></label>
         <input type="text" id="nama" placeholder="Masukkan nama lengkap" />
         <div class="field-error" id="err-nama">Nama wajib diisi</div>
       </div>
-
       <div class="field">
         <label>Tanggal Pengajuan <span class="req">*</span></label>
         <input type="date" id="tanggal" />
         <div class="field-error" id="err-tanggal">Tanggal wajib diisi</div>
       </div>
-
       <div class="field">
         <label>No. HP / WhatsApp <span class="req">*</span></label>
         <input type="text" id="noHP" placeholder="08xxxxxxxxxx" />
         <div class="field-error" id="err-noHP">No. HP wajib diisi</div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        </div>
-        <div>
-          <h2>Pilih Divisi</h2>
-          <p>Pilih divisi tempat Anda bertugas</p>
-        </div>
+        <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+        <div><h2>Pilih Divisi</h2><p>Pilih divisi tempat Anda bertugas</p></div>
       </div>
-
-      <div class="divisi-grid" id="divisiGrid">
-        <div class="divisi-option">
-          <input type="radio" name="divisi" id="d-hrd" value="HRD">
-          <label for="d-hrd"><span class="div-icon">👥</span>HRD</label>
-        </div>
-        <div class="divisi-option">
-          <input type="radio" name="divisi" id="d-finance" value="Finance">
-          <label for="d-finance"><span class="div-icon">💰</span>Finance</label>
-        </div>
-        <div class="divisi-option">
-          <input type="radio" name="divisi" id="d-marketing" value="Marketing">
-          <label for="d-marketing"><span class="div-icon">📢</span>Marketing</label>
-        </div>
-        <div class="divisi-option">
-          <input type="radio" name="divisi" id="d-produksi" value="Produksi">
-          <label for="d-produksi"><span class="div-icon">🏭</span>Produksi</label>
-        </div>
-        <div class="divisi-option">
-          <input type="radio" name="divisi" id="d-admin" value="Admin">
-          <label for="d-admin"><span class="div-icon">🗂️</span>Admin</label>
-        </div>
-        <div class="divisi-option">
-          <input type="radio" name="divisi" id="d-warehouse" value="Warehouse">
-          <label for="d-warehouse"><span class="div-icon">📦</span>Warehouse</label>
-        </div>
-        <div class="divisi-option" style="grid-column: span 2;">
-          <input type="radio" name="divisi" id="d-store" value="Store">
-          <label for="d-store"><span class="div-icon">🏪</span>Store</label>
-        </div>
+      <div class="divisi-grid">
+        <div class="divisi-option"><input type="radio" name="divisi" id="d-hrd" value="HRD"><label for="d-hrd"><span class="div-icon">👥</span>HRD</label></div>
+        <div class="divisi-option"><input type="radio" name="divisi" id="d-finance" value="Finance"><label for="d-finance"><span class="div-icon">💰</span>Finance</label></div>
+        <div class="divisi-option"><input type="radio" name="divisi" id="d-marketing" value="Marketing"><label for="d-marketing"><span class="div-icon">📢</span>Marketing</label></div>
+        <div class="divisi-option"><input type="radio" name="divisi" id="d-produksi" value="Produksi"><label for="d-produksi"><span class="div-icon">🏭</span>Produksi</label></div>
+        <div class="divisi-option"><input type="radio" name="divisi" id="d-admin" value="Admin"><label for="d-admin"><span class="div-icon">🗂️</span>Admin</label></div>
+        <div class="divisi-option"><input type="radio" name="divisi" id="d-warehouse" value="Warehouse"><label for="d-warehouse"><span class="div-icon">📦</span>Warehouse</label></div>
+        <div class="divisi-option" style="grid-column:span 2"><input type="radio" name="divisi" id="d-store" value="Store"><label for="d-store"><span class="div-icon">🏪</span>Store</label></div>
       </div>
       <div class="field-error" id="err-divisi" style="margin-top:8px">Pilih divisi terlebih dahulu</div>
     </div>
   </div>
   <div class="btn-row">
-    <button class="btn btn-primary" onclick="goStep(2)">
-      Lanjut
-      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </button>
+    <button class="btn btn-primary" onclick="goStep(2)">Lanjut <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
   </div>
 </div>
 
-<!-- STEP 2: DANA -->
+<!-- STEP 2: DANA + KEMBALIAN -->
 <div class="step-section" id="step2">
   <div class="container">
     <div class="card">
       <div class="card-title">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        </div>
-        <div>
-          <h2>Detail Penggunaan Dana</h2>
-          <p>Isi nominal dan tujuan penggunaan</p>
-        </div>
+        <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+        <div><h2>Detail Penggunaan Dana</h2><p>Isi nominal dan perhitungan kembalian</p></div>
       </div>
 
       <div class="field">
@@ -694,21 +264,43 @@
       </div>
 
       <div class="field">
-        <label>Nominal Dana (Rp) <span class="req">*</span></label>
+        <label>💵 Uang Diterima dari Perusahaan (Rp) <span class="req">*</span></label>
         <div class="nominal-wrap">
           <span class="nominal-prefix">Rp</span>
-          <input type="number" id="nominal" placeholder="0" oninput="formatNominal()" min="0" />
+          <input type="number" id="uangDiterima" placeholder="0" oninput="hitungKembalian()" min="0" />
         </div>
-        <div class="nominal-display" id="nominalDisplay"></div>
-        <div class="field-error" id="err-nominal">Nominal wajib diisi</div>
+        <div class="field-error" id="err-uangDiterima">Uang diterima wajib diisi</div>
       </div>
 
       <div class="field">
-        <label>Tujuan Penggunaan Dana <span class="req">*</span></label>
-        <textarea id="tujuan" placeholder="Jelaskan secara rinci untuk apa dana ini digunakan, termasuk nama barang/jasa, jumlah, dan kebutuhan spesifik..."></textarea>
-        <div class="field-error" id="err-tujuan">Tujuan penggunaan wajib diisi</div>
+        <label>🛒 Uang Dipakai / Total Belanja (Rp) <span class="req">*</span></label>
+        <div class="nominal-wrap">
+          <span class="nominal-prefix">Rp</span>
+          <input type="number" id="nominal" placeholder="0" oninput="hitungKembalian()" min="0" />
+        </div>
+        <div class="field-error" id="err-nominal">Nominal wajib diisi</div>
       </div>
 
+      <div class="kembalian-summary" id="kembalianSummary" style="display:none">
+        <div class="kem-row">
+          <span class="kem-label">💵 Uang Diterima</span>
+          <span class="kem-val" id="kem-diterima">Rp 0</span>
+        </div>
+        <div class="kem-row">
+          <span class="kem-label">🛒 Uang Dipakai</span>
+          <span class="kem-val" id="kem-dipakai">Rp 0</span>
+        </div>
+        <div class="kem-row" id="kem-result-row">
+          <span class="kem-label" id="kem-result-label">💚 Kembalian</span>
+          <span class="kem-val" id="kem-result-val">Rp 0</span>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:16px">
+        <label>Tujuan Penggunaan Dana <span class="req">*</span></label>
+        <textarea id="tujuan" placeholder="Jelaskan secara rinci untuk apa dana ini digunakan, termasuk nama barang/jasa dan kebutuhan spesifik..."></textarea>
+        <div class="field-error" id="err-tujuan">Tujuan penggunaan wajib diisi</div>
+      </div>
       <div class="field">
         <label>Keterangan Tambahan</label>
         <textarea id="keterangan" placeholder="Catatan tambahan jika diperlukan (opsional)..." style="min-height:60px"></textarea>
@@ -716,14 +308,8 @@
     </div>
   </div>
   <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goStep(1)">
-      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Kembali
-    </button>
-    <button class="btn btn-primary" onclick="goStep(3)">
-      Lanjut
-      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </button>
+    <button class="btn btn-secondary" onclick="goStep(1)"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Kembali</button>
+    <button class="btn btn-primary" onclick="goStep(3)">Lanjut <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
   </div>
 </div>
 
@@ -732,50 +318,31 @@
   <div class="container">
     <div class="card">
       <div class="card-title">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        </div>
-        <div>
-          <h2>Upload Bukti Pembelian</h2>
-          <p>Foto struk, nota, atau kwitansi</p>
-        </div>
+        <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div><h2>Upload Bukti Pembelian</h2><p>Foto struk, nota, atau kwitansi</p></div>
       </div>
-
       <div class="upload-area" id="uploadArea">
         <input type="file" id="fileInput" accept="image/*,application/pdf" multiple onchange="handleFiles(this.files)" />
-        <div class="upload-icon">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        </div>
+        <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
         <div class="upload-text">Ketuk untuk upload foto</div>
         <div class="upload-sub">Struk / Nota / Kwitansi • JPG, PNG, PDF<br>Maks. 5 file • 5MB per file</div>
       </div>
-
       <div class="preview-grid" id="previewGrid"></div>
       <div class="field-error" id="err-file" style="margin-top:8px">Upload minimal 1 bukti pembelian</div>
     </div>
-
-    <div class="card" style="background: linear-gradient(135deg,#FFF7E6,#FFF0CC); border-color: var(--accent);">
-      <div style="display:flex;gap:10px;align-items:flex-start;">
-        <span style="font-size:20px;flex-shrink:0;">⚠️</span>
+    <div class="card" style="background:linear-gradient(135deg,#FFF7E6,#FFF0CC);border-color:var(--accent)">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <span style="font-size:20px;flex-shrink:0">⚠️</span>
         <div>
           <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px">Penting!</div>
-          <div style="font-size:12px;color:var(--gray-700);line-height:1.6">
-            Bukti pembelian adalah syarat wajib untuk pertanggungjawaban dana. 
-            Tanpa bukti yang valid, pengajuan dapat <strong>ditolak atau diminta pengembalian dana</strong>.
-          </div>
+          <div style="font-size:12px;color:var(--gray-700);line-height:1.6">Bukti pembelian adalah syarat wajib. Tanpa bukti yang valid, pengajuan dapat <strong>ditolak atau diminta pengembalian dana</strong>.</div>
         </div>
       </div>
     </div>
   </div>
   <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goStep(2)">
-      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Kembali
-    </button>
-    <button class="btn btn-primary" onclick="goStep(4)">
-      Lanjut
-      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </button>
+    <button class="btn btn-secondary" onclick="goStep(2)"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Kembali</button>
+    <button class="btn btn-primary" onclick="goStep(4)">Lanjut <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
   </div>
 </div>
 
@@ -784,15 +351,9 @@
   <div class="container">
     <div class="card">
       <div class="card-title">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        </div>
-        <div>
-          <h2>Tanda Tangan Digital</h2>
-          <p>Tanda tangan sebagai pertanggungjawaban</p>
-        </div>
+        <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div><h2>Tanda Tangan Digital</h2><p>Tanda tangan sebagai pertanggungjawaban</p></div>
       </div>
-
       <div class="sig-wrap">
         <div class="sig-label-bar">
           <span>✍️ Tanda tangan di area bawah</span>
@@ -800,29 +361,24 @@
         </div>
         <div class="sig-container" id="sigContainer">
           <canvas id="sigCanvas" width="340" height="160"></canvas>
-          <div class="sig-empty-hint" id="sigHint">
-            <p>Tanda tangan di sini</p>
-          </div>
+          <div class="sig-empty-hint" id="sigHint"><p>Tanda tangan di sini</p></div>
         </div>
       </div>
       <div class="field-error" id="err-sig" style="margin-top:8px">Tanda tangan wajib diisi</div>
     </div>
-
-    <div class="card" style="border-left: 3px solid var(--navy);">
-      <div style="font-size:12px;color:var(--gray-700);line-height:1.7;font-weight:500">
-        Dengan menandatangani form ini, saya menyatakan bahwa:
-        <br>✅ Data yang saya isi adalah <strong>benar dan dapat dipertanggungjawabkan</strong>
-        <br>✅ Bukti yang dilampirkan adalah <strong>asli dan sah</strong>
-        <br>✅ Saya bersedia <strong>mengembalikan dana</strong> jika ditemukan ketidaksesuaian
+    <div class="card" style="border-left:3px solid var(--navy)">
+      <div style="font-size:12px;color:var(--gray-700);line-height:1.8;font-weight:500">
+        Dengan menandatangani form ini, saya menyatakan bahwa:<br>
+        ✅ Data yang saya isi adalah <strong>benar dan dapat dipertanggungjawabkan</strong><br>
+        ✅ Bukti yang dilampirkan adalah <strong>asli dan sah</strong><br>
+        ✅ Saya bersedia <strong>mengembalikan sisa dana</strong> jika ada kembalian<br>
+        ✅ Pengajuan ini menunggu <strong>persetujuan atasan</strong>
       </div>
     </div>
   </div>
   <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goStep(3)">
-      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Kembali
-    </button>
-    <button class="btn btn-primary" onclick="submitForm()" style="background:linear-gradient(135deg,#0A1628,#1E3A5F);color:white;box-shadow:0 4px 14px rgba(10,22,40,0.4)">
+    <button class="btn btn-secondary" onclick="goStep(3)"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Kembali</button>
+    <button class="btn btn-dark" onclick="submitForm()">
       <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
       Kirim Form
     </button>
@@ -834,23 +390,26 @@
 <!-- SUCCESS -->
 <div class="success-screen" id="successScreen">
   <div class="container">
-    <div class="success-anim">
-      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-    </div>
-    <h2>Form Terkirim!</h2>
-    <p>Data penggunaan dana Anda berhasil dikirim dan telah dicatat di sistem.</p>
+    <div class="success-anim"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h2>Form Terkirim! 🎉</h2>
+    <p>Data berhasil dikirim dan menunggu persetujuan atasan.</p>
+    <div style="margin:10px 0"><span class="status-badge status-pending">⏳ Menunggu Approval Atasan</span></div>
     <div class="receipt-card" id="receiptCard"></div>
-    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px" onclick="resetForm()">
-      Isi Form Baru
-    </button>
+    <div class="card" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-color:#93C5FD;text-align:left;margin-bottom:14px">
+      <div style="font-size:12px;color:#1E40AF;line-height:1.8">
+        <strong>📋 Langkah Selanjutnya:</strong><br>
+        1. Atasan akan menerima notifikasi email<br>
+        2. Proses approval maks. 1x24 jam<br>
+        3. Jika ada kembalian, serahkan ke Finance
+      </div>
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="resetForm()">Isi Form Baru</button>
   </div>
 </div>
 
 <script>
-// ============= CONFIG =============
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykucSvsvvm2Icq4i9773Df-meP05mhIhPEQVWNnSvc4KrXIeh0-RUAGeFPlXWl3L6-uA/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz2a6e_vcLP1P-YZORzlsiQOHgWrqTSBd9FqMloR4O5oq9jc4ckpEA4Xk5ePIKFxIIQ1A/exec';
 
-// ============= STEP NAV =============
 let currentStep = 1;
 const totalSteps = 4;
 
@@ -877,66 +436,101 @@ function updateProgress() {
   }
 }
 
-// ============= VALIDATION =============
+// KEMBALIAN
+function hitungKembalian() {
+  const diterima = parseFloat(document.getElementById('uangDiterima').value) || 0;
+  const dipakai = parseFloat(document.getElementById('nominal').value) || 0;
+  const summary = document.getElementById('kembalianSummary');
+  if (diterima > 0 || dipakai > 0) {
+    summary.style.display = 'block';
+    document.getElementById('kem-diterima').textContent = 'Rp ' + diterima.toLocaleString('id-ID');
+    document.getElementById('kem-dipakai').textContent = 'Rp ' + dipakai.toLocaleString('id-ID');
+    const selisih = diterima - dipakai;
+    const row = document.getElementById('kem-result-row');
+    row.className = 'kem-row';
+    if (selisih > 0) {
+      row.classList.add('kembalian-row');
+      document.getElementById('kem-result-label').textContent = '💚 Kembalian';
+      document.getElementById('kem-result-val').textContent = 'Rp ' + selisih.toLocaleString('id-ID');
+    } else if (selisih < 0) {
+      row.classList.add('kurang-row');
+      document.getElementById('kem-result-label').textContent = '🔴 Kurang Dana';
+      document.getElementById('kem-result-val').textContent = 'Rp ' + Math.abs(selisih).toLocaleString('id-ID');
+    } else {
+      row.classList.add('pas-row');
+      document.getElementById('kem-result-label').textContent = '✅ Pas / Tidak Ada Kembalian';
+      document.getElementById('kem-result-val').textContent = 'Rp 0';
+    }
+  } else { summary.style.display = 'none'; }
+}
+
+// VALIDATION
 function showErr(id, show) {
   const el = document.getElementById('err-' + id);
-  if (el) { el.classList.toggle('show', show); }
+  if (el) el.classList.toggle('show', show);
   const input = document.getElementById(id);
-  if (input) { input.classList.toggle('error', show); }
+  if (input) input.classList.toggle('error', show);
 }
 
 function validateStep(step) {
   let valid = true;
   if (step === 1) {
-    ['nama', 'tanggal', 'noHP'].forEach(f => {
+    ['nama','tanggal','noHP'].forEach(f => {
       const val = document.getElementById(f)?.value.trim();
-      if (!val) { showErr(f, true); valid = false; }
-      else showErr(f, false);
+      if (!val) { showErr(f, true); valid = false; } else showErr(f, false);
     });
-    const divisi = document.querySelector('input[name="divisi"]:checked');
-    if (!divisi) { document.getElementById('err-divisi').classList.add('show'); valid = false; }
-    else document.getElementById('err-divisi').classList.remove('show');
+    if (!document.querySelector('input[name="divisi"]:checked')) {
+      document.getElementById('err-divisi').classList.add('show'); valid = false;
+    } else document.getElementById('err-divisi').classList.remove('show');
   }
   if (step === 2) {
-    if (!document.getElementById('jenisKategori').value) { showErr('jenis', true); valid = false; }
-    else showErr('jenis', false);
+    if (!document.getElementById('jenisKategori').value) { showErr('jenis', true); valid = false; } else showErr('jenis', false);
+    const ud = document.getElementById('uangDiterima').value;
+    if (!ud || parseFloat(ud) <= 0) { showErr('uangDiterima', true); valid = false; } else showErr('uangDiterima', false);
     const nom = document.getElementById('nominal').value;
-    if (!nom || parseFloat(nom) <= 0) { showErr('nominal', true); valid = false; }
-    else showErr('nominal', false);
-    if (!document.getElementById('tujuan').value.trim()) { showErr('tujuan', true); valid = false; }
-    else showErr('tujuan', false);
+    if (!nom || parseFloat(nom) <= 0) { showErr('nominal', true); valid = false; } else showErr('nominal', false);
+    if (!document.getElementById('tujuan').value.trim()) { showErr('tujuan', true); valid = false; } else showErr('tujuan', false);
   }
   if (step === 3) {
-    if (uploadedFiles.length === 0) {
-      document.getElementById('err-file').classList.add('show'); valid = false;
-    } else document.getElementById('err-file').classList.remove('show');
+    if (uploadedFiles.length === 0) { document.getElementById('err-file').classList.add('show'); valid = false; }
+    else document.getElementById('err-file').classList.remove('show');
   }
   if (step === 4) {
-    if (!sigHasContent()) {
-      document.getElementById('err-sig').classList.add('show'); valid = false;
-    } else document.getElementById('err-sig').classList.remove('show');
+    if (!hasSig) { document.getElementById('err-sig').classList.add('show'); valid = false; }
+    else document.getElementById('err-sig').classList.remove('show');
   }
   return valid;
 }
 
-// ============= NOMINAL FORMAT =============
-function formatNominal() {
-  const val = document.getElementById('nominal').value;
-  const display = document.getElementById('nominalDisplay');
-  if (val && parseFloat(val) > 0) {
-    display.style.display = 'block';
-    display.textContent = 'Rp ' + parseFloat(val).toLocaleString('id-ID', { minimumFractionDigits: 0 });
-  } else display.style.display = 'none';
-}
-
-// ============= FILE UPLOAD =============
+// FILE UPLOAD
 let uploadedFiles = [];
 const previewGrid = document.getElementById('previewGrid');
+
+function compressImage(file) {
+  return new Promise(res => {
+    if (file.type === 'application/pdf') { const r = new FileReader(); r.onload = e => res(e.target.result); r.readAsDataURL(file); return; }
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = e => {
+      img.onload = () => {
+        const c = document.createElement('canvas');
+        const MAX = 1024;
+        let w = img.width, h = img.height;
+        if (w > MAX || h > MAX) { if (w > h) { h = Math.round(h * MAX / w); w = MAX; } else { w = Math.round(w * MAX / h); h = MAX; } }
+        c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h);
+        res(c.toDataURL('image/jpeg', 0.7));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
 
 function handleFiles(files) {
   Array.from(files).forEach(file => {
     if (uploadedFiles.length >= 5) { showToast('❌ Maks. 5 file'); return; }
-    if (file.size > 5 * 1024 * 1024) { showToast('❌ File ' + file.name + ' terlalu besar (maks 5MB)'); return; }
+    if (file.size > 5 * 1024 * 1024) { showToast('❌ File terlalu besar (maks 5MB)'); return; }
     uploadedFiles.push(file);
     const reader = new FileReader();
     reader.onload = e => addPreview(e.target.result, uploadedFiles.length - 1);
@@ -947,73 +541,51 @@ function handleFiles(files) {
 
 function addPreview(src, idx) {
   const item = document.createElement('div');
-  item.className = 'preview-item'; item.id = 'prev-' + idx;
-  item.innerHTML = `<img src="${src}">
-    <button class="remove-btn" onclick="removeFile(${idx})">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>`;
+  item.className = 'preview-item';
+  item.innerHTML = `<img src="${src}"><button class="remove-btn" onclick="removeFile(${idx})"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
   previewGrid.appendChild(item);
 }
 
 function removeFile(idx) {
   uploadedFiles.splice(idx, 1);
   previewGrid.innerHTML = '';
-  uploadedFiles.forEach((f, i) => {
-    const reader = new FileReader();
-    reader.onload = e => addPreview(e.target.result, i);
-    reader.readAsDataURL(f);
-  });
+  uploadedFiles.forEach((f, i) => { const r = new FileReader(); r.onload = e => addPreview(e.target.result, i); r.readAsDataURL(f); });
 }
 
-// drag
 const uploadArea = document.getElementById('uploadArea');
 uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
 uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
 uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
 
-// ============= SIGNATURE =============
+// SIGNATURE
 const canvas = document.getElementById('sigCanvas');
 const ctx = canvas.getContext('2d');
 let drawing = false, hasSig = false;
-
-function resizeCanvas() {
-  const w = canvas.parentElement.offsetWidth;
-  canvas.width = w;
-  canvas.height = 160;
-}
+function resizeCanvas() { const w = canvas.parentElement.offsetWidth; canvas.width = w; canvas.height = 160; }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
-
-function getPos(e) {
-  const r = canvas.getBoundingClientRect();
-  const src = e.touches ? e.touches[0] : e;
-  return { x: src.clientX - r.left, y: src.clientY - r.top };
-}
-
+function getPos(e) { const r = canvas.getBoundingClientRect(); const src = e.touches ? e.touches[0] : e; return { x: src.clientX - r.left, y: src.clientY - r.top }; }
 canvas.addEventListener('mousedown', e => { drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
 canvas.addEventListener('mousemove', e => { if (!drawing) return; const p = getPos(e); ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.strokeStyle = '#0A1628'; ctx.lineTo(p.x, p.y); ctx.stroke(); hasSig = true; document.getElementById('sigHint').style.display = 'none'; });
 canvas.addEventListener('mouseup', () => drawing = false);
 canvas.addEventListener('mouseleave', () => drawing = false);
-
 canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
 canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const p = getPos(e); ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.strokeStyle = '#0A1628'; ctx.lineTo(p.x, p.y); ctx.stroke(); hasSig = true; document.getElementById('sigHint').style.display = 'none'; }, { passive: false });
 canvas.addEventListener('touchend', () => drawing = false);
-
 function clearSig() { ctx.clearRect(0, 0, canvas.width, canvas.height); hasSig = false; document.getElementById('sigHint').style.display = 'block'; }
-function sigHasContent() { return hasSig; }
 
-// ============= SUBMIT =============
+// SUBMIT
 async function submitForm() {
   if (!validateStep(4)) return;
-
-  const nomVal = parseFloat(document.getElementById('nominal').value);
-  const sigData = canvas.toDataURL('image/png');
+  const uangDiterima = parseFloat(document.getElementById('uangDiterima').value) || 0;
+  const nomVal = parseFloat(document.getElementById('nominal').value) || 0;
+  const kembalian = uangDiterima - nomVal;
   const divisi = document.querySelector('input[name="divisi"]:checked').value;
 
-  // convert files to base64
-  const filesB64 = await Promise.all(uploadedFiles.map(f => new Promise(res => {
-    const r = new FileReader(); r.onload = e => res(e.target.result); r.readAsDataURL(f);
-  })));
+  document.getElementById('loadingOverlay').classList.add('show');
+  document.getElementById('loadingText').textContent = 'Memproses foto...';
+  const filesB64 = await Promise.all(uploadedFiles.map(f => compressImage(f)));
+  document.getElementById('loadingText').textContent = 'Mengirim data...';
 
   const payload = {
     timestamp: new Date().toLocaleString('id-ID'),
@@ -1022,50 +594,47 @@ async function submitForm() {
     noHP: document.getElementById('noHP').value.trim(),
     divisi,
     jenisKategori: document.getElementById('jenisKategori').value,
+    uangDiterima,
+    uangDiterimaFormatted: 'Rp ' + uangDiterima.toLocaleString('id-ID'),
     nominal: nomVal,
     nominalFormatted: 'Rp ' + nomVal.toLocaleString('id-ID'),
+    kembalian,
+    kembalianFormatted: kembalian >= 0 ? 'Rp ' + kembalian.toLocaleString('id-ID') : '-Rp ' + Math.abs(kembalian).toLocaleString('id-ID'),
+    statusKembalian: kembalian > 0 ? 'Ada Kembalian' : kembalian < 0 ? 'Kurang Dana' : 'Pas',
     tujuan: document.getElementById('tujuan').value.trim(),
     keterangan: document.getElementById('keterangan').value.trim(),
     jumlahBukti: uploadedFiles.length,
-    ttd: sigData,
+    statusApproval: 'Menunggu Approval',
+    ttd: canvas.toDataURL('image/png'),
     bukti: filesB64
   };
 
-  if (!SCRIPT_URL) {
-    // demo mode
-    showSuccess(payload);
-    showToast('⚠️ URL Sheet belum diset. Data tampil demo.');
-    return;
-  }
-
-  document.getElementById('loadingOverlay').classList.add('show');
   try {
-    const res = await fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     showSuccess(payload);
-    showToast('✅ Data berhasil dikirim ke Google Sheets!');
+    showToast('✅ Form berhasil dikirim!');
   } catch (err) {
     showToast('❌ Gagal mengirim. Cek koneksi internet.');
   } finally {
     document.getElementById('loadingOverlay').classList.remove('show');
+    document.getElementById('loadingText').textContent = 'Mengirim data...';
   }
 }
 
 function showSuccess(d) {
   document.getElementById('formWrapper').style.display = 'none';
-  const ss = document.getElementById('successScreen');
-  ss.classList.add('show');
+  document.getElementById('successScreen').classList.add('show');
+  const kemColor = d.kembalian > 0 ? '#16A34A' : d.kembalian < 0 ? '#DC2626' : '#16A34A';
+  const kemLabel = d.kembalian > 0 ? '💚 Kembalian' : d.kembalian < 0 ? '🔴 Kurang Dana' : '✅ Pas';
   document.getElementById('receiptCard').innerHTML = `
     <div class="receipt-row"><span class="r-label">Nama</span><span class="r-val">${d.nama}</span></div>
     <div class="receipt-row"><span class="r-label">Divisi</span><span class="r-val">${d.divisi}</span></div>
     <div class="receipt-row"><span class="r-label">Kategori</span><span class="r-val">${d.jenisKategori}</span></div>
-    <div class="receipt-row"><span class="r-label">Nominal</span><span class="r-val" style="color:var(--accent);font-size:15px">${d.nominalFormatted}</span></div>
+    <div class="receipt-row"><span class="r-label">Uang Diterima</span><span class="r-val">${d.uangDiterimaFormatted}</span></div>
+    <div class="receipt-row"><span class="r-label">Uang Dipakai</span><span class="r-val">${d.nominalFormatted}</span></div>
+    <div class="receipt-row"><span class="r-label">${kemLabel}</span><span class="r-val" style="color:${kemColor};font-size:15px">${d.kembalianFormatted}</span></div>
+    <div class="receipt-row"><span class="r-label">Status</span><span class="r-val"><span class="status-badge status-pending">⏳ Menunggu Approval</span></span></div>
     <div class="receipt-row"><span class="r-label">Bukti</span><span class="r-val">${d.jumlahBukti} file diunggah</span></div>
-    <div class="receipt-row"><span class="r-label">Waktu</span><span class="r-val">${d.timestamp}</span></div>
   `;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -1073,83 +642,29 @@ function showSuccess(d) {
 function resetForm() {
   document.getElementById('formWrapper').style.display = 'block';
   document.getElementById('successScreen').classList.remove('show');
-  document.getElementById('nama').value = '';
-  document.getElementById('tanggal').value = '';
-  document.getElementById('noHP').value = '';
+  ['nama','noHP','tujuan','keterangan'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('tanggal').value = new Date().toISOString().split('T')[0];
   document.querySelectorAll('input[name="divisi"]').forEach(r => r.checked = false);
   document.getElementById('jenisKategori').value = '';
+  document.getElementById('uangDiterima').value = '';
   document.getElementById('nominal').value = '';
-  document.getElementById('nominalDisplay').style.display = 'none';
-  document.getElementById('tujuan').value = '';
-  document.getElementById('keterangan').value = '';
+  document.getElementById('kembalianSummary').style.display = 'none';
   uploadedFiles = []; previewGrid.innerHTML = '';
-  clearSig();
-  goStep(1);
+  ctx.clearRect(0, 0, canvas.width, canvas.height); hasSig = false;
+  document.getElementById('sigHint').style.display = 'block';
   currentStep = 1;
+  document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('step1').classList.add('active');
   updateProgress();
 }
 
-// set default date today
-const today = new Date().toISOString().split('T')[0];
-document.getElementById('tanggal').value = today;
-
-// ============= TOAST =============
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
+
+document.getElementById('tanggal').value = new Date().toISOString().split('T')[0];
 </script>
-
-<!-- GOOGLE APPS SCRIPT SETUP GUIDE -->
-<!--
-=====================================================
-CARA MENGHUBUNGKAN KE GOOGLE SHEETS:
-=====================================================
-
-1. Buka Google Sheets baru
-2. Beri nama sheet sesuai kebutuhan (misal: "Data Dana")
-3. Di baris 1, buat header mulai dari kolom B:
-   B: Timestamp | C: Nama | D: Tanggal | E: No.HP | F: Divisi
-   G: Kategori | H: Nominal | I: Tujuan | J: Keterangan | K: Jumlah Bukti
-
-4. Buka menu Extensions > Apps Script
-5. Hapus kode yang ada, ganti dengan kode berikut:
-
----
-function doPost(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  const data = JSON.parse(e.postData.contents);
-
-  sheet.appendRow([
-    '',  // Kolom A kosong
-    data.timestamp,
-    data.nama,
-    data.tanggal,
-    data.noHP,
-    data.divisi,
-    data.jenisKategori,
-    data.nominalFormatted,
-    data.tujuan,
-    data.keterangan || '-',
-    data.jumlahBukti + ' file'
-  ]);
-
-  return ContentService
-    .createTextOutput(JSON.stringify({status: 'ok'}))
-    .setMimeType(ContentService.MimeType.JSON);
-}
----
-
-6. Save > Deploy > New Deployment
-7. Type: Web App
-8. Execute as: Me
-9. Who has access: Anyone
-10. Deploy > Copy URL
-11. Paste URL ke form konfigurasi di bagian atas halaman
-
-=====================================================
--->
 </body>
 </html>
